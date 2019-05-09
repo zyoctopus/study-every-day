@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<script>
+    function quicksort(arr) {
+        if (Array.isArray(arr)) {
+            var sort = function (left, right) {
+                if (left >= right) {
+                    return;
+                }
+
+                const standard = arr[left];
+                let i = left, j = right;
+
+                while (i < j) {
+                    // 这两个顺序很重要
+                    while (arr[j] >= standard && i < j) {
+                        j--;
+                    }
+                    while (arr[i] <= standard && i < j) {
+                        i++;
+                    }
+
+                    if (i < j) {
+                        let tmp;
+                        tmp = arr[i];
+                        arr[i] = arr[j];
+                        arr[j] = tmp;
+                        j--;
+                    }
+                }
+
+
+                arr[left] = arr[i];
+                arr[i] = standard;
+
+                sort(left, i - 1);
+                sort(i + 1, right);
+            }
+
+            sort(0, arr.length - 1);
+
+            return arr;
+        }
+    }
+</script>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<script>
+
+    // 循环实现
+    function myInstanceof(leftval, rightval) {
+        let left = leftval.__proto__;
+        let right = rightval.prototype;
+
+        while(true) {
+            if(left === null) {
+                return false;
+            }
+
+            if(left === right) {
+                return true;
+            }
+
+            left = left.__proto__;
+        }
+    }
+
+    // 通过递归实现原生的instanceof的功能
+    function _myInstanceof(leftval, rightval) {
+        if (leftval.__proto__ === null) {
+            return false;
+        }
+        if (leftval.__proto__ === rightval.prototype) {
+            return true;
+        }
+
+        return myInstanceof(leftval.__proto__, rightval);
+    }
+
+    let dog = new Object;
+
+    console.log(myInstanceof(dog, Object))
+</script>
+
+</html>
