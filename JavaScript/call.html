@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<script>
+    Function.prototype.myCall = function (content) {
+
+        content = content || window; // 初始化content
+
+        const args = [];
+        for (let i = 1; i < arguments.length; i++) {
+            args.push(arguments[i]);
+        }
+
+        content.fn = this; // 这个this是调用call方法的对象，也就是要调用的function，
+        // 将其给到content，通过content去调用，这样function里的this就指向了传进来的content
+
+        content.fn(...args); // 调用函数
+
+        delete content.fn; // 由于原先没有fn这个属性，所以调用完要删除
+    }
+
+    function say() {
+        console.log(this.name);
+    }
+
+    let obj = {
+        name: 'zhangyu'
+    }
+
+    say.myCall(obj);
+</script>
+
+</html>
