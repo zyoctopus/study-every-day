@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<script>
+    // 通过利用promise将react中setState变成同步方法
+    function setStateAsync(state, callback) {
+        return new Promise(resolve => {
+            this.setState(state, () => {
+                callback();
+                resolve();
+            })
+        })
+    }
+
+    // 用法
+    async function setName() {
+        await setStateAsync({
+            name: 'zhang'
+        }, () => {
+
+        })
+
+        console.log(this.state.name) // 打印出：zhang
+    }
+</script>
+
+</html>
