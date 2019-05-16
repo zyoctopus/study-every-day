@@ -5,7 +5,9 @@
     function setStateAsync(state, callback) {
         return new Promise(resolve => {
             this.setState(state, () => {
-                callback();
+                if (Object.prototype.toString.call(callback) === '[object Function]') {
+                    callback();
+                };
                 resolve();
             })
         })
