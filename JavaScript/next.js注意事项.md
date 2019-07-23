@@ -45,3 +45,8 @@ export default Page
     2. 如果添加的元素是纯文字，则 <Link>默认转化为 a标签，包裹在此文字外部(即作为文字的父元素)，如果当前组件有 jsx属性的 scope CSS，这个 a标签是不会受此 scope CSS影响的，也就是说，不会加上以 jsx开头的类名。
     需要注意的是，直接添加纯文字作为子元素的做法如今已经不被赞成了(deprecated)。
 
+4. `getInitialProps`方法基本上只能在pages里面并且是顶层组件，不能是子组件；
+5. 客户端在首次打开页面时（或刷新页面）服务端已经提供了完整的HTML文档可以立即显示。此时React的组件依然执行一次虚拟Dom渲染，所以所有的组件都会执行。然后_Nextjs_利用类似于_React_服务端渲染的_checksum_的机制防止虚拟Dom对真实Dom进行渲染，关于_React_服务端渲染的_checksum_机制可以到React [前后端同构防止重复渲染](https://www.chkui.com/article/react/react_server_render_with_checksum)一文了解。  
+(总结：页面第一次加载时虽然render会在客户端再次执行一次，但是通过checksum机制，并不会对真实dom进行渲染)
+
+[参考](https://cloud.tencent.com/developer/article/1401559)
