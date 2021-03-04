@@ -8,6 +8,8 @@
 
 答：react 按照 useState 出现顺序来定，这就是为什么 useState 不能写在 ifelse 里，会造成执行顺序错乱；
 
+2. 多个useState的值会类似与链表一样存储在fiber上，memoizedState用来存储对应的state，next指向下一个useState创建的state；
+
 ## useEffect
 
 1. 一个函数组件可以有多个副作用，而且这些副作用是异步的，不会阻碍浏览器更新视图；（如果要在更新视图之前执行副作用，可以使用 useLoyoutEffect）
