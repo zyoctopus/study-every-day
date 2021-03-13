@@ -1,5 +1,31 @@
 # hooks
 
+## 为什么要有 hooks
+
+1. class 的方式中，this 的指向变得麻烦，时常需要通过 bind 方式将 this 绑定到 class 的方法中，或者通过箭头函数的写法解决 this 的指向问题；
+2. 调用 super(props)很烦人，构造函数中如果需要使用 props 需要使用 super 函数，并且 props 作为参数；
+3. 便于复用逻辑，而不用通过高阶组件的方式将通用逻辑包装一层，多个高阶组件包装甚至可能形成 `包装地狱`；
+4. 可能要在多个生命周期里处理同一个逻辑；（useEffect 一个搞定）；
+5. 可以自己定义 hooks，可以创建任何 UI 解耦的自定义；
+
+```js
+function useRepos(id) {
+  const [repos, setRepos] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    setLoading(true);
+
+    fetchRepos(id).then((repos) => {
+      setRepos(repos);
+      setLoading(false);
+    });
+  }, [id]);
+
+  return [loading, repos];
+}
+```
+
 ## useState
 
 > 直接`替换`老状态返回新状态；
@@ -8,7 +34,7 @@
 
 答：react 按照 useState 出现顺序来定，这就是为什么 useState 不能写在 ifelse 里，会造成执行顺序错乱；
 
-2. 多个useState的值会类似与链表一样存储在fiber上，memoizedState用来存储对应的state，next指向下一个useState创建的state；
+2. 多个 useState 的值会类似与链表一样存储在 fiber 上，memoizedState 用来存储对应的 state，next 指向下一个 useState 创建的 state；
 
 ## useEffect
 
